@@ -1,0 +1,25 @@
+{
+  "sim_name": "cf_multi_arm_comparison_v1",
+  "time_step": 0.001,
+  "total_time": 0.5,
+  "seed": 42,
+  "field": {
+    "dimensions": 6.15,
+    "grid_resolution": 32,
+    "initial_density": 1.0
+  },
+  "wobble_detection": {
+    "phase_error_threshold": 0.05,
+    "window_size": 20
+  },
+  "autotune": {
+    "enabled": true,
+    "density_delta": 0.01,
+    "freq_delta_ratio": 0.5,
+    "sync_radius": 5
+  },
+  "output": {
+    "save_interval": 50,
+    "output_dir": "results/"
+  }
+}
