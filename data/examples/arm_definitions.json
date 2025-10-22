@@ -1,0 +1,46 @@
+{
+  "arms": [
+    {
+      "id": "CF-A",
+      "topology": "Linear Cascade",
+      "harmonic_ratio": "1:1.618",
+      "params": {
+        "base_frequency": 1.0,
+        "damping": 0.02
+      }
+    },
+    {
+      "id": "CF-B",
+      "topology": "Fold-Resonant",
+      "harmonic_ratio": "1:2.414",
+      "params": {
+        "base_frequency": 1.2,
+        "damping": 0.015
+      }
+    },
+    {
+      "id": "CF-C",
+      "topology": "Dual-Nested Loop",
+      "harmonic_ratio": "1:sqrt(3)",
+      "params": {
+        "base_frequency": 0.95,
+        "damping": 0.01
+      }
+    },
+    {
+      "id": "CF-D",
+      "topology": "Fractal Arm",
+      "harmonic_ratio": "2:3:5",
+      "params": {
+        "base_frequency": 1.05,
+        "damping": 0.008
+      }
+    }
+  ],
+  "units": {
+    "time": "s (sim-time)",
+    "frequency": "Hz (relative units)",
+    "density": "unitless (normalized)",
+    "phase_error": "radians"
+  }
+}
