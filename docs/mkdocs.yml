@@ -1,0 +1,38 @@
+site_name: Compressive Framework (CF)
+site_url: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+repo_name: mamaofthree579-ship-it/compressive-framework-cf
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - search.highlight
+    - search.share
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Math Reference: math_reference.md
+  - Equations:
+      - Resonance: equations/resonance.md
+      - Compression: equations/compression.md
+      - Feedback: equations/feedback.md
+  - Glossary: glossary.md
+  - Contributing: contributing.md
+  - Tutorials:
+      - Introduction: tutorials/intro_to_cf.md
+      - Equation Explorer: tutorials/equation_explorer.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+  - admonition
+  - codehilite
+
+plugins:
+  - search
+  - mkdocs-git-revision-date-plugin
+  - mkdocs-minify-plugin
