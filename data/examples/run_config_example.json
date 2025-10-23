@@ -1,11 +1,11 @@
 {
-  "sim_name": "cf_multi_arm_comparison_v1",
+  "sim_name": "cf_interactive_demo_v1",
   "time_step": 0.001,
-  "total_time": 0.5,
+  "total_time": 0.05,
   "seed": 42,
   "field": {
     "dimensions": 6.15,
-    "grid_resolution": 32,
+    "grid_resolution": 16,
     "initial_density": 1.0
   },
   "wobble_detection": {
@@ -19,7 +19,7 @@
     "sync_radius": 5
   },
   "output": {
-    "save_interval": 50,
-    "output_dir": "results/"
+    "save_interval": 10,
+    "output_dir": "results/interactive_demo_run"
   }
 }
