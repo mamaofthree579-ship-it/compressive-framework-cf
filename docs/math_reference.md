@@ -1,15 +1,21 @@
 \
-# Math Reference
+# Math Reference — Equation API
 
-Key symbols and heuristic equations used in the scaffold:
+This page describes the equation API and the example models included in the `cf.equations` package.
 
-- \(\omega_r\) — resonance frequency (ƒr)
-- \(\nabla C\) — compression gradient
-- \(H_f\) — harmonic feedback coefficient
-- \(\phi_i(t)\) — phase of node \(i\)
+## EquationModel (base)
+All model classes inherit from `EquationModel` and implement:
 
-Discrete phase update (heuristic):
-\[\phi_i(t+\Delta t) = \phi_i(t) + \omega_{r,i}\Delta t + H_{f,i}F_i(\{\phi_j\}) + \eta_i(t)\]
+```python
+def evaluate(self, *args, **kwargs):
+    ...
+```
 
-Coherence metric:
-\[\sigma_\phi = \sqrt{\frac{1}{N}\sum_{i=1}^N (\phi_i - \bar\phi)^2},\quad \mathrm{coherence}=\max(0,1-\sigma_\phi)\]
+They should accept numpy arrays and return numpy arrays or scalars.
+
+## Included equation models
+- `resonance`: `evaluate(frequency, amplitude, phase_offset=0.0, t=None)`
+- `compression`: `evaluate(base_frequency, compression, alpha=0.1)`
+- `feedback`: `evaluate(phases, hf=0.1, neighbor_kernel=None)`
+
+These are lightweight, testable building blocks intended as starting points for more complex physics modules.
