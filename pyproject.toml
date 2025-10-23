@@ -1,0 +1,9 @@
+[project]
+name = "compressive-framework-cf"
+version = "0.1.0"
+description = "Simulation scaffold for the Compressive Framework (CF) — educational and visualization-focused."
+requires-python = ">=3.8"
+dependencies = [
+  "numpy",
+  "matplotlib"
+]
