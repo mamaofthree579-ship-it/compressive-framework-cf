@@ -1,7 +1,4 @@
-- name: 🏗️ Build package
-  run: |
-    python -m pip install --upgrade build
-    python -m build --wheel --sdist
+name: 🧱 Build & Release CF Scaffold
 
 on:
   push:
@@ -37,6 +34,7 @@ jobs:
 
       - name: 🏗️ Build package
         run: |
+          python -m pip install --upgrade build
           python -m build --wheel --sdist
         env:
           PYTHONPATH: .
