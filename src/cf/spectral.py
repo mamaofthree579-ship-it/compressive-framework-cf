@@ -1,5 +1,4 @@
 import numpy as np
-
 def spectral_coupling_matrix(phases, coupling_strength=0.1):
     vals = np.array(phases)
     fft = np.fft.rfft(np.exp(1j * vals))

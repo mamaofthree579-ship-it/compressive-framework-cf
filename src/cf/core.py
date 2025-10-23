@@ -1,21 +1,14 @@
 import json
-def main(config_path):
-    with open(config_path) as fh:
-        cfg = json.load(fh)
-    print('Core main placeholder. Run run_simulation_with_spectral via library import.')
+import numpy as np
+from .arms import ArmModel
+from .field import Field
+from .field_utils import step_field_phase
+from .wobble import detect_wobble
+from .autotune import autotune_anchor_clusters
 
-
-# runner wrapper using spectral RK4 (appended to core)
 def run_simulation_with_spectral(config, arms_def):
-    import numpy as np
-    from .field_utils import step_field_phase
-    from .arms import ArmModel
-    from .field import Field
-    from .wobble import detect_wobble
-    from .autotune import autotune_anchor_clusters
-
-    rng = np.random.default_rng(config.get('seed',0))
-    np.random.seed(config.get('seed',0))
+    rng = np.random.default_rng(config.get('seed', 0))
+    np.random.seed(config.get('seed', 0))
     arms = [ArmModel(ad['id'], ad['params']) for ad in arms_def['arms']]
     field = Field(config['field']['grid_resolution'], config['field']['initial_density'], rng=rng)
     dt = config['time_step']
