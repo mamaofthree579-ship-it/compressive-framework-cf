@@ -1,4 +1,4 @@
-from src/cf/viz.py import visualize_waveform
+from viz.py import visualize_waveform
 import numpy as np
 x = np.linspace(0, 10, 1000)
 y = np.sin(x**2)
