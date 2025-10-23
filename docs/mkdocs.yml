@@ -14,15 +14,11 @@ nav:
   - Home: index.md
   - Architecture: architecture.md
   - Math Reference: math_reference.md
-  - Equations:
-      - Resonance: equations/resonance.md
-      - Compression: equations/compression.md
-      - Feedback: equations/feedback.md
-  - Glossary: glossary.md
-  - Contributing: contributing.md
   - Tutorials:
       - Introduction: tutorials/intro_to_cf.md
       - Equation Explorer: tutorials/equation_explorer.md
+  - Glossary: glossary.md
+  - Contributing: contributing.md
 
 markdown_extensions:
   - toc:
@@ -36,3 +32,9 @@ plugins:
   - search
   - mkdocs-git-revision-date-plugin
   - mkdocs-minify-plugin
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+  footer: "A research framework exploring compressive dynamics and particle coherence through open mathematical simulation."
