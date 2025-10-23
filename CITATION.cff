@@ -1,6 +1,13 @@
 cff-version: 1.2.0
-title: "Compressive Framework (CF) — Simulation Scaffold"
+title: "Compressive Framework (CF)"
+message: "Please cite this project when using it in your research."
 authors:
-  - family-names: "CF Team"
-    given-names: "Open"
-year: 2025
+  - family-names: "mamaofthree579"
+    given-names: ""
+abstract: >
+  The Compressive Framework is an open mathematical simulation environment
+  exploring compressive dynamics, harmonic resonance, and particle coherence.
+license: MIT
+repository-code: "https://github.com/mamaofthree579-ship-it/compressive-framework-cf"
+version: 1.0.0
+date-released: 2025-10-23
