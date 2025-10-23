@@ -1,6 +1,9 @@
+# Compressive Framework (CF)
+
+A computational framework for exploring compressive gravity and particle coherence.
+
+Repository prepared for user: mamaofthree579-ship-it
 
 
-## Packaging & releases
-
-This repo provides `pyproject.toml` and `setup.cfg` for packaging. The GitHub Actions `release.yml` will run tests and create a GitHub Release when pushed with a version tag (e.g. `v0.1.0`).
+Documentation: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
 

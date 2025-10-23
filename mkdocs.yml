@@ -1,0 +1,9 @@
+site_name: Compressive Framework (CF)
+site_description: A computational framework for exploring compressive gravity and particle coherence.
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Math Reference: math_reference.md
+  - Glossary: glossary.md
+  - Contributing: contributing.md
