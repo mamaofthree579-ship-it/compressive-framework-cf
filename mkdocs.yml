@@ -1,26 +1,25 @@
 site_name: Compressive Framework (CF)
-site_description: A research framework for understanding compressive gravity and particle behavior
+site_description: Theoretical Gravitation & Particle Studies — compressive geometry & particle-field behavior.
 site_author: mamaofthree579-ship-it
 repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
-repo_name: compressive-framework-cf
 
 theme:
   name: material
-  features:
-    - navigation.tabs
-    - navigation.top
-    - search.highlight
-    - search.suggest
-    - content.code.copy
+  logo: images/cf-trifractal-dark.svg
+  favicon: images/cf-trifractal-dark.svg
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: blue
-      accent: pink
+      accent: teal
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: blue
-      accent: pink
+      accent: teal
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - content.code.copy
 
 nav:
   - Home: index.md
@@ -28,35 +27,31 @@ nav:
       - Overview: theory/overview.md
       - Equations: theory/equations.md
   - Simulations:
-      - Black Hole Model: simulations/bh_model.md
+      - Interactive: simulation.md
+      - Reference Plots: reference_plots.md
   - Notebooks:
-      - Introduction: notebooks/intro_to_cf.md
+      - Intro: notebooks/intro_to_cf.md
+  - Contribute: contributing.md
+  - Version: version.md
 
 markdown_extensions:
-  - attr_list
+  - admonition
   - toc:
       permalink: true
-  - footnotes
-  - codehilite
-  - admonition
-
-plugins:
-  - search
-# ensure these are present in mkdocs.yml
-markdown_extensions:
   - pymdownx.arithmatex:
-      inline_syntax: ['$', '$']    # allow $...$ inline
-      block_syntax: ['$$', '$$']   # allow $$...$$ blocks
+      inline_syntax: ['$', '$']
+      block_syntax: ['$$', '$$']
+  - pymdownx.superfences
+  - pymdownx.highlight
 
 extra_css:
   - stylesheets/extra.css
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
   - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
 
-# Optionally, to ensure proper ordering with mkdocs-material:
-theme:
-  name: material
-  # ... your existing theme config ...
+plugins:
+  - search
+  - git-revision-date-localized
