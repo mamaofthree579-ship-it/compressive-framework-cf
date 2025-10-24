@@ -1,11 +1,28 @@
-site_name: BBH-SIM Documentation
-theme:
-  name: material
+name: Deploy MkDocs
 
-nav:
-  - Home: index.md
-  - Concepts:
-    - Compressive Fields: docs/concepts/compressive_fields.md
-    - Black Hole Behavior: docs/concepts/bh_behavior.md
-  - Simulations:
-    - Intro Notebook: notebooks_html/intro_to_cf.html
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs & Theme
+        run: |
+          pip install mkdocs-material
+
+      - name: Build & Deploy
+        run: |
+          mkdocs gh-deploy --force
