@@ -1,212 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>BBH-Sim Visualizer</title>
-<style>
-  :root {
-    --bg:#0b0b0b; --panel:#111; --accent:#00b4ff;
-    --muted:#888; --text:#e6e6e6;
-    --hplus:#00ffcc; --hcross:#ff66ff;
-  }
-  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;}
-  header{padding:14px 16px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)}
-  h1{margin:0;font-size:1.25rem;color:var(--accent)}
-  p.lead{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
-  .toolbar{display:flex;gap:8px;justify-content:center;padding:12px;flex-wrap:wrap}
-  .tabbtn{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--text);
-          padding:8px 12px;border-radius:8px;font-weight:600}
-  .tabbtn.active{background:linear-gradient(90deg,rgba(0,180,255,0.15),rgba(0,140,210,0.1));
-                 border-color:rgba(0,180,255,0.4)}
-  main{padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
-  .panel{background:var(--panel);width:95%;max-width:920px;border-radius:12px;padding:12px}
-  canvas{display:block;width:100%;height:360px;border-radius:8px;background:#000}
-  .controls{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px;flex-wrap:wrap}
-  button{background:var(--accent);color:#000;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer}
-  button.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.1)}
-  .small{font-size:0.9rem;padding:6px 8px}
-  .muted{color:var(--muted);font-size:0.9rem;text-align:center;margin-top:6px}
-  .legend{position:absolute;top:8px;right:12px;font-size:0.8rem;background:rgba(0,0,0,0.4);
-          padding:4px 8px;border-radius:6px;color:#eee}
-  .legend span{display:inline-block;width:12px;height:12px;margin-right:4px;border-radius:3px}
-  footer{padding:14px;text-align:center;color:var(--muted);font-size:0.85rem}
-  .panel-wrap{position:relative;width:100%;display:flex;flex-direction:column;align-items:center}
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Compressive Framework (CF)</title>
+  <meta name="description" content="Compressive Framework — an open computational project exploring harmonic coherence, compressive geometry, and particle-field behavior via reproducible simulation.">
+
+  <style>
+    :root{
+      --bg:#061018;
+      --muted:#9fb0c5;
+      --accent:#00d1ff;
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --container:1200px;
+    }
+
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:
+      radial-gradient(800px 320px at 10% 8%, rgba(0,120,160,0.06), transparent),
+      var(--bg); color:#e7f6ff; -webkit-font-smoothing:antialiased;}
+
+    /* layout */
+    header{max-width:var(--container); margin:36px auto 12px; padding:18px; display:flex; gap:18px; align-items:center; z-index:6; position:relative}
+    .logo-wrap{display:flex; gap:12px; align-items:center}
+    .logo-svg{width:84px;height:84px;display:block}
+    h1{margin:0;font-size:1.8rem;line-height:1; color:#dcfbff}
+    .tagline{margin:4px 0 0;color:var(--muted);font-size:0.95rem;max-width:70ch}
+
+    /* big hero */
+    main.hero{max-width:var(--container); margin:10px auto; display:grid; grid-template-columns: 1fr 340px; gap:20px; align-items:start; padding:18px; box-sizing:border-box; z-index:5; position:relative}
+    .card{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.02)}
+    .hero-left{min-height:360px; display:flex; flex-direction:column; gap:14px; justify-content:center}
+    .hero-left h2{margin:0;font-size:1.45rem;color:#e9fbff}
+    p.lead{margin:0;color:var(--muted);line-height:1.5}
+
+    /* buttons & badges */
+    .actions{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
+    .btn{background:linear-gradient(180deg,var(--accent),#00a6d6); color:#021019; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700}
+    .btn.secondary{background:transparent; color:#dff2fb; border:1px solid rgba(255,255,255,0.04); font-weight:600}
+    .badges{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap}
+    .badges img{height:22px}
+
+    /* side column */
+    .side {position:sticky; top:24px; align-self:start; display:flex; flex-direction:column; gap:12px}
+    .meta-line{color:var(--muted); font-size:0.9rem}
+
+    /* canvas backgrounds */
+    canvas.bg-canvas, canvas.particle-canvas {position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:1; pointer-events:none; opacity:0.42}
+    #three-card {display:none; border-radius:10px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}
+
+    /* footer */
+    footer{max-width:var(--container); margin:40px auto 80px; color:var(--muted); text-align:center; font-size:0.9rem}
+
+    @media (max-width:980px){
+      main.hero{grid-template-columns:1fr; padding:12px}
+      header{flex-direction:row;gap:12px; padding:12px}
+      .logo-svg{width:60px;height:60px}
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>BBH-Sim Visualizer</h1>
-  <p class="lead">Interactive mock gravitational wave demonstration</p>
-</header>
 
-<div class="toolbar">
-  <button class="tabbtn active" data-view="timefreq">Time & Frequency</button>
-  <button class="tabbtn" data-view="chirp">Animated Chirp</button>
-  <button class="tabbtn" data-view="dual">Dual Polarization</button>
-</div>
+  <!-- Canvas layers -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+  <canvas id="particleCanvas" class="particle-canvas" aria-hidden="true"></canvas>
 
-<main>
-  <section id="timefreq" class="panel view">
-    <div class="panel-wrap">
-      <div class="legend"><span style="background:var(--accent)"></span>h₊  |  <span style="background:#fff"></span>h×</div>
-      <canvas id="timeCanvas"></canvas>
+  <header role="banner" aria-label="Compressive Framework header">
+    <div class="logo-wrap" aria-hidden="false">
+      <!-- inline SVG logo (concentric shells) -->
+      <svg class="logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Compressive Framework logo">
+        <defs>
+          <radialGradient id="rg1" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#a7ffff" stop-opacity="1"/>
+            <stop offset="60%" stop-color="#007c9a" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#001a20" stop-opacity="1"/>
+          </radialGradient>
+        </defs>
+        <rect width="120" height="120" rx="16" fill="url(#rg1)"></rect>
+        <g transform="translate(60,60)">
+          <circle r="36" fill="rgba(255,255,255,0.04)"></circle>
+          <circle r="22" fill="none" stroke="#8ff6ff" stroke-opacity="0.6" stroke-width="2"></circle>
+          <circle r="8" fill="#a7ffff"></circle>
+          <g transform="rotate(15)">
+            <path d="M-36,0 A36,36 0 0,1 36,0" fill="none" stroke="rgba(0,0,0,0.06)"></path>
+          </g>
+        </g>
+      </svg>
+      <div>
+        <h1>Compressive Framework (CF)</h1>
+        <div class="tagline">Open mathematical simulations exploring harmonic coherence, compressive geometry, and emergent particle-field behavior.</div>
+      </div>
     </div>
-    <canvas id="freqCanvas" style="height:240px;margin-top:12px"></canvas>
-    <div class="controls">
-      <button id="refreshStatic" class="small ghost">Refresh</button>
-      <button id="downloadTime" class="small">📥 Download Plot</button>
-    </div>
-    <div class="muted">Static waveform (top) and FFT frequency spectrum (bottom)</div>
-  </section>
 
-  <section id="chirp" class="panel view" style="display:none">
-    <div class="panel-wrap">
-      <div class="legend"><span style="background:var(--accent)"></span>h₊</div>
-      <canvas id="chirpCanvas"></canvas>
-    </div>
-    <div class="controls">
-      <button id="playChirp">▶ Play</button>
-      <button id="resetChirp" class="ghost small">Reset</button>
-      <button id="downloadChirp" class="small">📥 Download Plot</button>
-    </div>
-    <div class="muted">Single polarization chirp (time-domain)</div>
-  </section>
+    <div style="flex:1"></div>
 
-  <section id="dual" class="panel view" style="display:none">
-    <div class="panel-wrap">
-      <div class="legend"><span style="background:var(--hplus)"></span>h₊  |  <span style="background:var(--hcross)"></span>h×</div>
-      <canvas id="dualCanvas"></canvas>
+    <div style="display:flex;gap:8px;align-items:center">
+      <!-- badge placeholders — replace workflow filenames / repo owner as needed -->
+      <div class="badges" aria-hidden="true">
+        <!-- Example placeholders:
+             <img src="https://img.shields.io/github/actions/workflow/status/OWNER/REPO/ci.yml?label=CI">
+             <img src="https://img.shields.io/github/deployments/OWNER/REPO/github-pages?label=Docs">
+             <img src="https://img.shields.io/github/license/OWNER/REPO">
+        -->
+      </div>
     </div>
-    <div class="controls">
-      <button id="playDual">▶ Play</button>
-      <button id="pauseDual" class="ghost small">Pause</button>
-      <button id="downloadDual" class="small">📥 Download Plot</button>
-    </div>
-    <div class="muted">Dual polarization animation (phase-shifted)</div>
-  </section>
+  </header>
 
-  <div class="controls" style="margin-top:16px">
-    <button id="downloadAll" class="small">📦 Download All Plots</button>
-  </div>
-</main>
+  <main class="hero" role="main">
+    <section class="card hero-left" aria-labelledby="hero-title">
+      <h2 id="hero-title">A computational space for harmonics, compression & coherence</h2>
+      <p class="lead">
+        The Compressive Framework is a research-oriented, simulation-first toolkit. It provides modular equation
+        building blocks, notebook examples, and visualization tools so researchers can test geometric and harmonic
+        models in a reproducible way — purely computational, safe, and open-source.
+      </p>
 
-<footer>
-  <div>BBH-Sim demo — mock waveform visualizer © 2025</div>
-  <div id="timestamp" style="margin-top:4px;font-size:0.8rem;"></div>
-</footer>
+      <div class="actions">
+        <a class="btn" href="docs/">📘 Documentation</a>
+        <a class="btn secondary" href="notebooks/intro_to_cf.ipynb">🧪 Intro Notebook</a>
+        <a class="btn secondary" href="notebooks/equation_explorer.ipynb">🧩 Equation Explorer</a>
+        <a class="btn secondary" href="https://github.com/">🐙 GitHub</a>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+      <div style="margin-top:14px;color:var(--muted); font-size:0.95rem">
+        Tip: run the notebooks locally or via Binder/Colab for interactive exploration. Config examples live in <code>data/examples/</code>.
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="card" role="region" aria-label="Project status">
+        <div class="meta-line">Version: <strong id="version">loading…</strong></div>
+        <div class="meta-line">Last build: <span id="buildTime">—</span></div>
+      </div>
+
+      <div class="card" role="region" aria-label="Quick actions">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn" id="run-demo">Run Small Demo</button>
+          <a class="btn secondary" id="download-zip" href="#" target="_blank">Download ZIP</a>
+          <a class="btn secondary" id="open-issues" href="#" target="_blank">Open Issue</a>
+        </div>
+      </div>
+
+      <div id="three-card" class="card" aria-hidden="true">
+        <div id="three-container" style="width:100%;height:260px;"></div>
+      </div>
+    </aside>
+  </main>
+
+  <footer role="contentinfo">
+    <div>© 2025 Compressive Framework · Open Source Research</div>
+    <div style="margin-top:8px"><a href="CITATION.cff">Citation</a> · <a href="LICENSE">License</a></div>
+  </footer>
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-
-// ---------- live clock ----------
-function updateClock(){
-  const now=new Date();
-  const ts=document.getElementById('timestamp');
-  ts.textContent = "Live Clock: " + now.toLocaleTimeString();
-}
-updateClock();
-setInterval(updateClock,1000);
-
-// ---------- mock data ----------
-const N=1500, dt=0.0005;
-const t=Array.from({length:N},(_,i)=>i*dt);
-const f_start=30, f_end=250;
-const f_t=t.map(x=>f_start+(f_end-f_start)*(x/t[t.length-1])**2);
-const amp=t.map(x=>(x/t[t.length-1])**3);
-const hPlus=t.map((x,i)=>amp[i]*Math.sin(2*Math.PI*f_t[i]*x)*Math.exp(-x*80));
-const hCross=t.map((x,i)=>amp[i]*Math.cos(2*Math.PI*f_t[i]*x)*Math.exp(-x*80));
-
-// ---------- utilities ----------
-function saveCanvas(canvas,name){
-  const link=document.createElement('a');
-  link.download=name+'.png';
-  link.href=canvas.toDataURL('image/png');
-  link.click();
-}
-function toData(canvas){return canvas.toDataURL('image/png').split(',')[1];}
-
-// ---------- FFT & drawing ----------
-function fftMag(sig){
-  const n=sig.length;const re=new Array(n).fill(0),im=new Array(n).fill(0);
-  for(let k=0;k<n;k++){for(let j=0;j<n;j++){const a=2*Math.PI*k*j/n;re[k]+=sig[j]*Math.cos(a);im[k]-=sig[j]*Math.sin(a);}}
-  return re.map((r,i)=>Math.sqrt(r*r+im[i]*im[i])/n).slice(0,n/2);
-}
-function drawAxes(ctx,w,h,label){
-  ctx.strokeStyle='rgba(255,255,255,0.2)';
-  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
-  ctx.fillStyle='rgba(255,255,255,0.5)';
-  ctx.font='12px system-ui';ctx.fillText(label,8,14);
-}
-function drawTimeFreq(){
-  const timeC=document.getElementById('timeCanvas');
-  const freqC=document.getElementById('freqCanvas');
-  const ctxT=timeC.getContext('2d'), ctxF=freqC.getContext('2d');
-  const w=timeC.width=timeC.clientWidth, h=timeC.height=360;
-  ctxT.fillStyle='#000';ctxT.fillRect(0,0,w,h);
-  drawAxes(ctxT,w,h,"Time-domain Strain");
-  ctxT.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--accent');
-  ctxT.beginPath();
-  for(let i=0;i<N;i++){const x=i/N*w, y=h/2-hPlus[i]*160; i?ctxT.lineTo(x,y):ctxT.moveTo(x,y);}ctxT.stroke();
-  ctxT.strokeStyle='#fff';ctxT.beginPath();
-  for(let i=0;i<N;i++){const x=i/N*w, y=h/2-hCross[i]*160; i?ctxT.lineTo(x,y):ctxT.moveTo(x,y);}ctxT.stroke();
-
-  const mag=fftMag(hPlus);
-  const wf=freqC.width=freqC.clientWidth, hf=freqC.height=240;
-  const ctx2=freqC.getContext('2d');
-  ctx2.fillStyle='#000';ctx2.fillRect(0,0,wf,hf);
-  drawAxes(ctx2,wf,hf,"Frequency-domain (FFT)");
-  ctx2.strokeStyle='#00ff88';ctx2.beginPath();
-  for(let i=0;i<mag.length;i++){const x=i/mag.length*wf, y=hf-(mag[i]/Math.max(...mag))*200; i?ctx2.lineTo(x,y):ctx2.moveTo(x,y);}
-  ctx2.stroke();
+/* Utility: fit canvas to DPR-safe size */
+function fitCanvas(canvas){
+  const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+  const w = Math.max(1, Math.floor(window.innerWidth * dpr));
+  const h = Math.max(1, Math.floor(window.innerHeight * dpr));
+  canvas.width = w;
+  canvas.height = h;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return ctx;
 }
 
-// ---------- Tabs ----------
-document.querySelectorAll('.tabbtn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const v=btn.dataset.view;
-    document.querySelectorAll('.view').forEach(sec=>{
-      sec.style.display = (sec.id===v)?'block':'none';
+/* Background concentric shells */
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  let ctx = fitCanvas(canvas);
+  window.addEventListener('resize', ()=> ctx = fitCanvas(canvas));
+  let t = 0;
+  function draw(){
+    t += 0.01;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const W = canvas.width/(window.devicePixelRatio||1);
+    const H = canvas.height/(window.devicePixelRatio||1);
+    const cx = W/2, cy = H/2;
+    const maxR = Math.min(cx, cy) * 0.86;
+
+    // subtle radial gradient overlay
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, 'rgba(0,8,12,0.02)');
+    g.addColorStop(1, 'rgba(0,0,0,0.02)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    for(let i=1;i<=8;i++){
+      const ratio = i/8;
+      const wobble = 1 + 0.035 * Math.sin(t*3.2 - i*0.9);
+      const r = maxR * ratio * wobble;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(0,200,255,${0.42 - ratio*0.36})`;
+      ctx.lineWidth = 1 + (i%2)*0.6;
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* Particle field subtle background */
+(function(){
+  const canvas = document.getElementById('particleCanvas');
+  let ctx = fitCanvas(canvas);
+  window.addEventListener('resize', ()=> ctx = fitCanvas(canvas));
+  const N = 64;
+  const particles = [];
+  let width = window.innerWidth, height = window.innerHeight;
+  for(let i=0;i<N;i++){
+    particles.push({
+      x: Math.random()*width,
+      y: Math.random()*height,
+      vx: (Math.random()-0.5)*0.4,
+      vy: (Math.random()-0.5)*0.4,
+      r: 0.6 + Math.random()*2
     });
-    if(v==='timefreq') drawTimeFreq();
-  });
+  }
+  let time = 0;
+  function step(){
+    time += 0.008;
+    const dpr = window.devicePixelRatio||1;
+    const W = canvas.width/dpr, H = canvas.height/dpr;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let p of particles){
+      p.x += p.vx + 0.15*Math.sin(time + p.x*0.001);
+      p.y += p.vy + 0.12*Math.cos(time + p.y*0.001);
+      if(p.x < -20) p.x = W+20;
+      if(p.x > W+20) p.x = -20;
+      if(p.y < -20) p.y = H+20;
+      if(p.y > H+20) p.y = -20;
+
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*8);
+      grad.addColorStop(0, 'rgba(0,200,255,0.10)');
+      grad.addColorStop(1, 'rgba(0,200,255,0.0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r*8,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+
+/* Auto-insert version if pyproject.toml exists */
+(function(){
+  const el = document.getElementById('version');
+  const bt = document.getElementById('buildTime');
+  fetch('pyproject.toml').then(r=>{
+    if(!r.ok) throw new Error('no pyproject');
+    return r.text();
+  }).then(txt=>{
+    const m = txt.match(/version\\s*=\\s*["']([\\d\\.\\-a-zA-Z]+)["']/);
+    if(m) el.textContent = m[1];
+  }).catch(()=>{ el.textContent = 'v0.0.0'; });
+
+  // insert build time
+  bt.textContent = new Date().toLocaleString();
+})();
+
+/* Small UI wiring */
+document.getElementById('run-demo').addEventListener('click', function(){
+  // open the intro notebook (or the interactive demo page)
+  window.open('notebooks/intro_to_cf.ipynb', '_blank');
+});
+document.getElementById('download-zip').addEventListener('click', function(e){
+  // placeholder: if you host a release artifact, set its URL here
+  e.preventDefault();
+  alert('Download link placeholder — replace href on the button with an artifact URL or release zip.');
+});
+document.getElementById('open-issues').addEventListener('click', function(e){
+  e.preventDefault();
+  // placeholder: replace with your GitHub issues URL
+  window.open('https://github.com/', '_blank');
 });
 
-// ---------- Download All ----------
-document.getElementById('downloadAll').onclick=async()=>{
-  const zip=new JSZip();
-  drawTimeFreq();
-  zip.file('time_frequency.png', toData(document.getElementById('timeCanvas')), {base64:true});
-  zip.file('chirp.png', toData(document.getElementById('chirpCanvas')), {base64:true});
-  zip.file('dual.png', toData(document.getElementById('dualCanvas')), {base64:true});
-
-  const now=new Date();
-  const timestamp=now.toLocaleString();
-  const readmeText =
-`# BBH-Sim Visualizer — Plot Descriptions
-
-Generated at: ${timestamp}
-
-1. time_frequency.png — Time & frequency-domain view.
-2. chirp.png — Animated chirp waveform (h₊).
-3. dual.png — Dual polarization view (h₊, h×).
-
-All plots are mock data for demonstration only.`;
-
-  zip.file('README.txt', readmeText);
-  const blob=await zip.generateAsync({type:"blob"});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='bbh_sim_plots.zip';
-  a.click();
-};
-
-drawTimeFreq();
-
-});
+/* Optional: on-demand 3D toggle (not loaded by default) */
+(function(){
+  // kept simple: can be extended to load three.js on demand
+})();
 </script>
+
 </body>
 </html>
