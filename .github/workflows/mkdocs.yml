@@ -1,28 +1,38 @@
-name: Deploy MkDocs
+name: Deploy MkDocs (with reference plots)
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Install MkDocs & Theme
+      - name: Install Python deps
         run: |
-          pip install mkdocs-material
+          python -m pip install --upgrade pip
+          pip install mkdocs-material numpy matplotlib
 
-      - name: Build & Deploy
+      - name: Generate reference plots
+        run: |
+          python scripts/generate_reference_plot.py
+
+      - name: Build & Deploy docs
         run: |
           mkdocs gh-deploy --force
