@@ -1,41 +1,29 @@
-site_name: Compressive Framework
-site_description: "A computational and geometric exploration of compressive gravity and particle behavior."
-site_url: https://mamaofthree579.github.io/ship-it/
-repo_url: https://github.com/mamaofthree579/ship-it
-
+site_name: Compressive Framework (CF)
+site_description: Open scientific modeling of compressive particle behavior
+site_author: mamaofthree579-ship-it
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
 theme:
   name: material
   palette:
-    - scheme: default
-      primary: blue
-      accent: amber
+    primary: indigo
+    accent: teal
   features:
-    - navigation.instant
     - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
     - content.code.copy
-    - content.action.edit
-    - toc.integrate
-
 nav:
   - Home: index.md
-  - Framework Overview: framework_overview.md
-  - Simulation Concepts: simulation_concepts.md
-  - Equations & Models: equations_models.md
-  - Notebooks:
-      - Intro to CF: notebooks/intro_to_cf.ipynb
-      - Equation Explorer: notebooks/equation_explorer.ipynb
-  - License: LICENSE.md
-
+  - Research:
+      - Overview: research.md
+      - Architecture: architecture.md
+  - Simulations: simulations.md
 markdown_extensions:
   - admonition
-  - codehilite
-  - footnotes
+  - pymdownx.superfences
+  - pymdownx.highlight
   - toc:
       permalink: true
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.tabbed
-
 plugins:
   - search
-  - mkdocs-jupyter
