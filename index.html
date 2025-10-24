@@ -1,383 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Compressive Physics Framework</title>
-  <meta name="description" content="Compressive Framework — exploring compressive geometry, harmonic coherence and particle behavior via open computational simulation.">
-
-  <!-- Simple inlined styles for portability -->
-  <style>
-    :root{
-      --bg:#06080b;
-      --muted:#aeb6c2;
-      --accent:#00c3ff;
-      --card:#0f1720;
-      --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
-      --focus: 3px solid rgba(0,195,255,0.18);
-      --radius:12px;
-    }
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background: radial-gradient(1000px 600px at 10% 10%, rgba(0,40,60,0.12), transparent), var(--bg); color:#e6eef6;}
-    a{color:var(--accent); text-decoration:none}
-    header { position:relative; z-index:5; padding:44px 20px 28px; display:flex; flex-direction:row; align-items:center; gap:20px; max-width:1200px; margin:0 auto; box-sizing:border-box;}
-    .brand { display:flex; align-items:center; gap:16px; }
-    .logo { width:72px; height:72px; display:block; }
-    .title { font-size:1.45rem; margin:0; line-height:1; color:#dbf7ff; font-weight:600;}
-    .subtitle { margin:0; color:var(--muted); font-size:0.95rem; }
-    .spacer {flex:1}
-    nav.buttons { display:flex; gap:8px; align-items:center;}
-    .btn { background:linear-gradient(180deg,var(--accent),#00a6d6); color:#041018; border-radius:10px; padding:10px 14px; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.35); border:none; cursor:pointer; }
-    .btn.secondary { background: transparent; border:1px solid rgba(255,255,255,0.06); color:#d7eaf6; box-shadow:none; }
-    .btn:focus { outline: none; box-shadow: var(--focus); }
-    main.container { max-width:1200px; margin: 12px auto 48px; padding:20px; position:relative; z-index:5; display:grid; grid-template-columns: 1fr 360px; gap:20px; box-sizing:border-box; }
-    .card { background: linear-gradient(180deg,var(--glass), var(--glass-2)); border-radius:var(--radius); padding:18px; box-shadow: 0 6px 30px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.02); }
-    .hero { min-height:360px; display:flex; flex-direction:column; justify-content:center; gap:12px; }
-    h1 { margin:0; font-size:2.1rem; color:#dffaff; }
-    p.lead { margin:0; color:var(--muted); font-size:1rem; max-width:48rem; }
-    .links { margin-top:12px; display:flex; gap:12px; flex-wrap:wrap; }
-    .small { font-size:0.9rem; color:var(--muted); }
-
-    /* Right column */
-    .side { position:sticky; top:28px; align-self:start; display:flex; flex-direction:column; gap:12px; }
-    .status { display:flex; align-items:center; gap:10px; justify-content:space-between; }
-    .status .meta { color:var(--muted); font-size:0.88rem; }
-    .badges img { height:20px; vertical-align:middle; margin-left:8px; }
-
-    /* Canvas full-bleed background */
-    #bg-canvas, #particle-canvas { position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:1; pointer-events:none; }
-
-    /* ThreeJS container (optional) */
-    #three-container { width:100%; height:320px; border-radius:10px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
-
-    footer { text-align:center; color:var(--muted); margin:40px 0 80px; font-size:0.9rem; z-index:5; }
-
-    /* Responsive */
-    @media (max-width:980px){
-      main.container { grid-template-columns: 1fr; padding:12px; }
-      .side { position:relative; top:auto; }
-      header { padding:20px; gap:12px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compressive Physics Framework</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: #e6e6e6;
+            text-align: center;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        header {
+            padding: 100px 20px 40px;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            font-size: 2.6em;
+            margin: 0.2em 0 0.4em;
+        }
+        p {
+            font-size: 1.1em;
+            max-width: 780px;
+            margin: 0 auto 1.5em;
+            line-height: 1.55em;
+        }
+        img.logo {
+            width: 130px;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        .buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 26px;
+            border-radius: 6px;
+            font-size: 1.05em;
+            text-decoration: none;
+            background: #007bff;
+            color: #fff;
+        }
+        .buttons a:hover {
+            background: #0056b3;
+        }
+        .badge-row img {
+            margin: 5px;
+        }
+        canvas {
+            position: fixed;
+            left: 0; top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            opacity: 0.38;
+        }
+        footer {
+            margin-top: 80px;
+            padding-bottom: 50px;
+            opacity: 0.75;
+            font-size: 0.9em;
+            z-index: 2;
+            position: relative;
+        }
+        footer a {
+            color: #00b6ff;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Background canvases -->
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+<canvas id="chamber"></canvas>
 
-  <!-- Header with inline SVG logo -->
-  <header role="banner">
-    <div class="brand" aria-hidden="false">
-      <!-- Simple concentric logo (SVG) -->
-      <svg class="logo" viewBox="0 0 120 120" role="img" aria-label="CF logo">
-        <defs>
-          <radialGradient id="g1" cx="50%" cy="40%">
-            <stop offset="0%" stop-color="#00e1ff"/>
-            <stop offset="60%" stop-color="#006b8a"/>
-            <stop offset="100%" stop-color="#00222b"/>
-          </radialGradient>
-        </defs>
-        <rect width="120" height="120" rx="18" fill="url(#g1)"></rect>
-        <g transform="translate(60,60)">
-          <circle r="34" fill="rgba(255,255,255,0.05)"></circle>
-          <circle r="20" fill="none" stroke="#00f0ff" stroke-opacity="0.45" stroke-width="2.2"></circle>
-          <circle r="8" fill="#00e1ff" fill-opacity="0.9"></circle>
-        </g>
-      </svg>
-      <div>
-        <div class="title">Compressive Physics Framework</div>
-        <div class="subtitle">Exploring compressive geometry, harmonic coherence & particle behavior</div>
-      </div>
+<header>
+    <img class="logo" src="assets/logo-cf.svg" alt="CF Logo">
+
+    <h1>Compressive Physics Framework</h1>
+
+    <p>
+        An open scientific initiative exploring <strong>compressive geometry</strong> and emergent
+        <strong>particle-like behavior</strong> within harmonic fields.
+    </p>
+
+    <div class="badge-row">
+        <img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/ci.yml?label=CI" alt="CI Status">
+        <img src="https://img.shields.io/github/deployments/mamaofthree579-ship-it/github-pages?label=Docs" alt="Docs Deploy">
+        <img src="https://img.shields.io/github/license/mamaofthree579-ship-it" alt="License">
     </div>
 
-    <div class="spacer" aria-hidden="true"></div>
+    <div class="buttons">
+        <a href="docs/">📘 Documentation</a>
+        <a href="https://github.com/mamaofthree579-ship-it">🐙 GitHub</a>
+    </div>
 
-    <nav class="buttons" role="navigation" aria-label="Top links">
-      <a class="btn" href="docs/" id="docs-link">Docs</a>
-      <a class="btn secondary" href="notebooks/" id="notebooks-link">Notebooks</a>
-      <a class="btn secondary" href="https://github.com/mamaofthree579-ship-it/releases" id="releases-link">Releases</a>
-      <a class="btn secondary" href="https://github.com/mamaofthree579-ship-it/discussions" id="discuss-link">Community</a>
-    </nav>
-  </header>
+    <div style="margin-top: 20px; opacity: 0.8;">
+        Version: <span id="version-text">loading…</span>
+    </div>
+</header>
 
-  <!-- Main content -->
-  <main class="container" role="main">
-    <section class="card hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">A research framework for harmonic compression & field geometry</h1>
-      <p class="lead">
-        The Compressive Framework (CF) is an open simulation environment for exploring how resonant harmonics,
-        compressive gradients, and geometric structure interact. This site provides documentation, runnable notebooks,
-        and interactive demos — all designed for safe, transparent research.
-      </p>
+<footer>
+    <div>© 2025 Compressive Framework Project · Open Research</div>
+    <div style="margin-top:6px;">
+        <a href="CITATION.cff">Cite this project</a> ·
+        <a href="LICENSE">MIT License</a>
+    </div>
+</footer>
 
-      <div class="links small">
-        <a class="btn" href="docs/">Open docs</a>
-        <a class="btn secondary" href="notebooks/intro_to_cf.ipynb">Run Intro Notebook</a>
-        <button class="btn secondary" id="toggle-3d">Show 3D Model</button>
-      </div>
+<script>
+// Resize canvas to fill screen
+const canvas = document.getElementById('chamber');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+addEventListener('resize', resize);
+resize();
 
-      <div style="margin-top:18px;color:var(--muted);font-size:0.95rem;">
-        <strong>Tip:</strong> If you are interested in reproducible experiments, check the <a href="data/examples/">example configs</a>.
-      </div>
+// Phase Resonance Chamber animation
+let t = 0;
+function animate(){
+    t += 0.012;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const cx = canvas.width/2, cy = canvas.height/2;
+    const maxR = Math.min(cx,cy)*0.85;
 
-      <div style="margin-top:18px;">
-        <!-- small quick stats -->
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
-          <div style="background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:8px;">
-            <div style="font-weight:700;color:#dffcff">Docs</div>
-            <div style="color:var(--muted)">Updated automatically</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:8px;">
-            <div style="font-weight:700;color:#dffcff">Notebooks</div>
-            <div style="color:var(--muted)">Runnable & CI-validated</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:8px;">
-            <div style="font-weight:700;color:#dffcff">Equations</div>
-            <div style="color:var(--muted)">Modular registry</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <aside class="side">
-      <div class="card status" role="region" aria-label="Project status">
-        <div>
-          <div class="meta">Version <strong id="version-text">v0.1.0</strong></div>
-          <div class="meta">Last build: <span id="build-time">—</span></div>
-        </div>
-        <div class="badges" aria-hidden="true">
-          <!-- Replace these src with your workflow badge URLs -->
-          <img src="https://img.shields.io/badge/CI-passing-00a36c.svg" alt="CI status">
-          <img src="https://img.shields.io/badge/Docs-deployed-0066ff.svg" alt="Docs status">
-        </div>
-      </div>
-
-      <div class="card" role="region" aria-label="Interactive controls">
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <button class="btn" id="btn-run-demo">Run Demo (client)</button>
-          <button class="btn secondary" id="btn-download">Download ZIP</button>
-          <button class="btn secondary" id="btn-feedback">Open Issue</button>
-        </div>
-      </div>
-
-      <div class="card" role="region" aria-label="3D view container" id="three-card" style="display:none;">
-        <div id="three-container" aria-hidden="false"></div>
-      </div>
-    </aside>
-  </main>
-
-  <footer role="contentinfo">
-    <div>© 2025 Compressive Framework Project · Open-source research for reproducible simulation</div>
-  </footer>
-
-  <!-- Scripts: animation, particles, Three.js optional loader -->
-  <script>
-  // Utility: devicePixelRatio safe canvas sizing
-  function fitCanvasToSize(canvas){
-    const dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2)); // clamp DPR for perf
-    const {innerWidth: w, innerHeight: h} = window;
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(dpr,0,0,dpr,0,0); // scale drawing to CSS pixels
-    return ctx;
-  }
-
-  // Background pulsating shells on bg-canvas
-  (function(){
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = fitCanvasToSize(canvas);
-    let t=0;
-    function resize(){ fitCanvasToSize(canvas); }
-    window.addEventListener('resize', resize);
-
-    function drawShells(){
-      t += 0.01;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      const w = canvas.width / (window.devicePixelRatio||1);
-      const h = canvas.height / (window.devicePixelRatio||1);
-      const cx = w/2, cy = h/2;
-      const maxR = Math.min(cx,cy) * 0.9;
-
-      // subtle radial vignette
-      const grad = ctx.createLinearGradient(0,0,0,h);
-      grad.addColorStop(0, 'rgba(0,12,18,0.02)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.02)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,w,h);
-
-      // concentric resonance shells
-      for (let i=0;i<8;i++){
-        const ratio = (i+1)/8;
-        const base = maxR * ratio;
-        const wobble = 1 + 0.03 * Math.sin(t*2.5 + i*0.9);
-        const r = base * wobble;
+    for(let i=0;i<8;i++){
+        const r = maxR*((i+1)/8)*(1+0.045*Math.sin(t*4-i));
         ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI*2);
-        const alpha = Math.max(0.03, 0.35 - ratio*0.4);
-        ctx.strokeStyle = `rgba(0,195,255,${alpha})`;
-        ctx.lineWidth = 1 + (i%2);
+        ctx.arc(cx,cy,r,0,Math.PI*2);
+        ctx.strokeStyle = `rgba(0,180,255,${0.5-(i*0.05)})`;
+        ctx.lineWidth = 1.8;
         ctx.stroke();
-      }
-      requestAnimationFrame(drawShells);
     }
-    drawShells();
-  })();
+    requestAnimationFrame(animate);
+}
+animate();
 
-  // Particle field on particle-canvas (floating nodes, subtle)
-  (function(){
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = fitCanvasToSize(canvas);
-    let particles = [];
-    const n = 80; // number of particles
-    let w = innerWidth, h = innerHeight;
-
-    function initParticles(){
-      particles = [];
-      for(let i=0;i<n;i++){
-        particles.push({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          vx: (Math.random()-0.5) * 0.4,
-          vy: (Math.random()-0.5) * 0.4,
-          r: 0.8 + Math.random()*2.5,
-          ox: Math.random()*0.6 + 0.4
-        });
-      }
+// Version auto-injection from pyproject.toml
+fetch('pyproject.toml')
+  .then(r => r.text())
+  .then(t => {
+    const match = t.match(/version\s*=\s*"(.+?)"/);
+    if (match){
+      document.getElementById('version-text').textContent = match[1];
     }
-    initParticles();
-    window.addEventListener('resize', ()=>{ fitCanvasToSize(canvas); w=innerWidth; h=innerHeight; initParticles(); });
-
-    let time=0;
-    function step(){
-      time += 0.01;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      const dpr = window.devicePixelRatio || 1;
-      const W = canvas.width / dpr, H = canvas.height / dpr;
-      // draw particles
-      for (let p of particles){
-        p.x += p.vx + 0.15*Math.sin(time*p.ox);
-        p.y += p.vy + 0.12*Math.cos(time*p.ox);
-        if (p.x < -10) p.x = W+10;
-        if (p.x > W+10) p.x = -10;
-        if (p.y < -10) p.y = H+10;
-        if (p.y > H+10) p.y = -10;
-
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
-        g.addColorStop(0, 'rgba(0,200,255,0.12)');
-        g.addColorStop(1, 'rgba(0,200,255,0)');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
-        ctx.fill();
-      }
-      requestAnimationFrame(step);
-    }
-    step();
-  })();
-
-  // Optional Three.js 3D model loader & renderer (loaded on demand)
-  (function(){
-    const btn = document.getElementById('toggle-3d');
-    const threeCard = document.getElementById('three-card');
-    const container = document.getElementById('three-container');
-    let loaded = false;
-    btn.addEventListener('click', async function(){
-      if (!loaded){
-        // show placeholder while loading
-        threeCard.style.display = 'block';
-        container.innerHTML = '<div style="color:var(--muted);padding:18px">Loading interactive 3D model…</div>';
-        // load Three.js from CDN
-        try {
-          await new Promise((res, rej) => {
-            const s = document.createElement('script');
-            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js';
-            s.onload = res; s.onerror = rej;
-            document.head.appendChild(s);
-          });
-          // small 3D scene
-          const THREE = window.THREE;
-          container.innerHTML = '';
-          const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-          const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
-          renderer.setSize(container.clientWidth, container.clientHeight);
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-          container.appendChild(renderer.domElement);
-
-          // lights
-          const light = new THREE.PointLight(0x66f0ff, 1.1);
-          light.position.set(10,10,20);
-          scene.add(light);
-          const amb = new THREE.AmbientLight(0xffffff, 0.3);
-          scene.add(amb);
-
-          // geometry: layered shells (tetra + rings)
-          const group = new THREE.Group();
-          for (let i=0;i<5;i++){
-            const geo = new THREE.TorusGeometry(1.2 + i*0.6, 0.06 + 0.01*i, 16, 64);
-            const mat = new THREE.MeshStandardMaterial({color:0x00e1ff, transparent:true, opacity:0.12 + 0.08*i, metalness:0.2, roughness:0.4});
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.rotation.x = Math.PI/2;
-            mesh.rotation.y = (i*0.4);
-            group.add(mesh);
-          }
-          scene.add(group);
-
-          camera.position.set(0, 1.6, 4);
-          function animateThree(){
-            group.rotation.y += 0.008;
-            group.rotation.x = Math.sin(Date.now()*0.0004) * 0.08;
-            renderer.render(scene, camera);
-            requestAnimationFrame(animateThree);
-          }
-          animateThree();
-
-          // resize handling
-          new ResizeObserver(()=> { renderer.setSize(container.clientWidth, container.clientHeight); camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); }).observe(container);
-
-          loaded = true;
-          btn.textContent = 'Hide 3D Model';
-        } catch (err){
-          container.innerHTML = '<div style="color:salmon;padding:12px">Failed to load 3D model.</div>';
-          console.error('Three.js load error', err);
-        }
-      } else {
-        // toggle off
-        if (threeCard.style.display === 'block') {
-          threeCard.style.display = 'none';
-          btn.textContent = 'Show 3D Model';
-        } else {
-          threeCard.style.display = 'block';
-          btn.textContent = 'Hide 3D Model';
-        }
-      }
-    });
-  })();
-
-  // small UI wiring: buttons that open links or download a ZIP (placeholder)
-  document.getElementById('btn-download').addEventListener('click', function(){
-    // replace with actual release asset or repo zip URL
-    const url = 'https://github.com/mamaofthree579-ship-it/compressive-framework-cf/archive/refs/heads/main.zip';
-    window.open(url, '_blank');
   });
-  document.getElementById('btn-feedback').addEventListener('click', function(){
-    window.open('https://github.com/mamaofthree579-ship-it/issues/new', '_blank');
-  });
-  document.getElementById('btn-run-demo').addEventListener('click', function(){
-    // open the interactive demo notebook in a new tab
-    window.open('notebooks/intro_to_cf.ipynb', '_blank');
-  });
+</script>
 
-  // Fill build time (demo: use now)
-  (function(){
-    const el = document.getElementById('build-time');
-    el.textContent = new Date().toLocaleString();
-  })();
-
-  </script>
 </body>
 </html>
