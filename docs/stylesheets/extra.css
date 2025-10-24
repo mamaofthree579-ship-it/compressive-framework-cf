@@ -1,0 +1,64 @@
+/* docs/stylesheets/extra.css
+   - starfield background
+   - logo & header placement
+   - small UI polish for simulation cards
+*/
+
+/* starfield layer behind everything */
+:root {
+  --cf-accent: #00d8ff;
+  --cf-muted: #9fb0c5;
+}
+
+.md-header {
+  background: linear-gradient(180deg, rgba(0,10,14,0.6), rgba(0,0,0,0.2));
+}
+
+.md-main {
+  position: relative;
+  z-index: 6;
+}
+
+/* small fixed starfield element */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 120px 120px, 40px 40px;
+  opacity: 0.07;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* header logo sizing for material theme */
+.md-header .md-logo img {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+/* hero accent for docs index */
+.hero-card {
+  padding: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 10px 30px rgba(3,5,8,0.5);
+}
+
+/* highlight code blocks slightly */
+.md-typeset pre {
+  background: rgba(2,8,12,0.5);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+/* ensure katex math looks crisp */
+.katex {
+  font-size: 1.02rem;
+  color: var(--md-default-fg);
+}
