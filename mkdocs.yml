@@ -42,3 +42,21 @@ markdown_extensions:
 
 plugins:
   - search
+# ensure these are present in mkdocs.yml
+markdown_extensions:
+  - pymdownx.arithmatex:
+      inline_syntax: ['$', '$']    # allow $...$ inline
+      block_syntax: ['$$', '$$']   # allow $$...$$ blocks
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+
+# Optionally, to ensure proper ordering with mkdocs-material:
+theme:
+  name: material
+  # ... your existing theme config ...
