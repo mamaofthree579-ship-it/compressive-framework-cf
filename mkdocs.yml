@@ -1,32 +1,24 @@
-name: Deploy MkDocs
+site_name: Compressive Framework (CF)
+site_url: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
+site_description: Documentation for the Compressive Framework (CF) project.
+repo_name: mamaofthree579-ship-it/compressive-framework-cf
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
 
-on:
-  push:
-    branches:
-      - main
+nav:
+  - Home: index.md
+  - Notebooks: notebooks.md
+  - API Reference: api.md
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.sections
+    - content.code.copy
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install Documentation Tools
-        run: |
-          pip install mkdocs-material \
-                     mkdocs-git-revision-date-localized-plugin \
-                     mkdocs-tags-plugin \
-                     pymdown-extensions
-
-      - name: Deploy to GitHub Pages
-        run: |
-          mkdocs gh-deploy --force
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - toc:
+      permalink: true
