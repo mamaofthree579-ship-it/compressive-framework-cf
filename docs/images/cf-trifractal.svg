@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Compressive Framework logo - tri fractal">
+  <defs>
+    <radialGradient id="gradA" cx="50%" cy="35%">
+      <stop offset="0%" stop-color="#e6ffff"/>
+      <stop offset="55%" stop-color="#7fe6ff"/>
+      <stop offset="100%" stop-color="#003045"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- background circle -->
+  <rect width="600" height="600" rx="28" fill="url(#gradA)"/>
+
+  <!-- tri-fractal: three inward spirals / shells -->
+  <g transform="translate(300,300)" filter="url(#glow)">
+    <!-- outer ring segments (threefold rotated) -->
+    <g fill="none" stroke="#bff7ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.82">
+      <path d="M -140 0 A 140 140 0 0 1 70 -120" />
+      <path d="M -60 110 C -10 30 30 -30 100 -60" stroke-opacity="0.65"/>
+    </g>
+
+    <!-- three symmetric spiral arms -->
+    <g stroke="#00e3ff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 0 0
+               C 40 -6 120 -18 155 -70
+               C 170 -96 190 -126 170 -154" opacity="0.95"/>
+    </g>
+
+    <g transform="rotate(120)" stroke="#00d8ff" stroke-width="3.4" fill="none" stroke-linecap="round">
+      <path d="M 0 0
+               C 40 -6 120 -18 155 -70
+               C 170 -96 190 -126 170 -154" opacity="0.88"/>
+    </g>
+
+    <g transform="rotate(240)" stroke="#00cbd6" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M 0 0
+               C 40 -6 120 -18 155 -70
+               C 170 -96 190 -126 170 -154" opacity="0.82"/>
+    </g>
+
+    <!-- central core -->
+    <g>
+      <circle r="16" fill="#eaffff" />
+      <circle r="32" fill="none" stroke="#a7ffff" stroke-width="2" opacity="0.95"/>
+    </g>
+  </g>
+
+  <!-- small annotation text -->
+  <text x="34" y="560" font-family="Inter, Arial, sans-serif" font-size="20" fill="#001f2a" opacity="0.85">Compressive Framework (CF)</text>
+</svg>
