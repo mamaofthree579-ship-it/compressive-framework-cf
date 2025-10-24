@@ -12,13 +12,12 @@ theme:
 
 nav:
   - Home: index.md
-  - Architecture: architecture.md
-  - Math Reference: math_reference.md
-  - Tutorials:
-      - Introduction: tutorials/intro_to_cf.md
-      - Equation Explorer: tutorials/equation_explorer.md
-  - Glossary: glossary.md
-  - Contributing: contributing.md
+  - Research:
+      - Overview: research.md
+      - Architecture: architecture.md
+  - Simulations:
+      - Interactive: simulation.md
+      - Reference Plots: reference_plots.md
 
 markdown_extensions:
   - toc:
