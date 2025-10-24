@@ -1,24 +1,44 @@
 site_name: Compressive Framework (CF)
-site_url: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
-site_description: Documentation for the Compressive Framework (CF) project.
-repo_name: mamaofthree579-ship-it/compressive-framework-cf
+site_description: A research framework for understanding compressive gravity and particle behavior
+site_author: mamaofthree579-ship-it
 repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
-
-nav:
-  - Home: index.md
-  - Notebooks: notebooks.md
-  - API Reference: api.md
+repo_name: compressive-framework-cf
 
 theme:
   name: material
   features:
-    - navigation.expand
-    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.suggest
     - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: pink
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: pink
+
+nav:
+  - Home: index.md
+  - Theory:
+      - Overview: theory/overview.md
+      - Equations: theory/equations.md
+  - Simulations:
+      - Black Hole Model: simulations/bh_model.md
+  - Notebooks:
+      - Introduction: notebooks/intro_to_cf.md
 
 markdown_extensions:
-  - admonition
-  - codehilite
-  - footnotes
+  - attr_list
   - toc:
       permalink: true
+  - footnotes
+  - codehilite
+  - admonition
+
+plugins:
+  - search
