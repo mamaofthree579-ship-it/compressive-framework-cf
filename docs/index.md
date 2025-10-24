@@ -1,6 +1,6 @@
-# Compressive Framework (CF)
+# Framework Overview
 
-A computational framework for exploring compressive gravity and particle coherence.
+The Compressive Framework (CF) models multidimensional harmonic coherence and stability under varying compressive gradients. It offers a unified approach to field interactions without assuming destructive particle collisions.
 
 This documentation covers the architecture, mathematics, and contribution guidelines for the project.
 
@@ -8,7 +8,3 @@ This documentation covers the architecture, mathematics, and contribution guidel
 - Interactive demo: `src/examples/interactive_demo.py`
 
 Use this site to explore architecture, math modules, and tutorials.
-
-```bash
-pip install -r requirements.txt
-pytest
