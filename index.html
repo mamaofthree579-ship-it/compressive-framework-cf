@@ -1,151 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compressive Physics Framework</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #0a0a0a;
-            color: #e6e6e6;
-            text-align: center;
-            margin: 0;
-            overflow-x: hidden;
-        }
-        header {
-            padding: 100px 20px 40px;
-            position: relative;
-            z-index: 2;
-        }
-        h1 {
-            font-size: 2.6em;
-            margin: 0.2em 0 0.4em;
-        }
-        p {
-            font-size: 1.1em;
-            max-width: 780px;
-            margin: 0 auto 1.5em;
-            line-height: 1.55em;
-        }
-        img.logo {
-            width: 130px;
-            margin-bottom: 20px;
-            opacity: 0.95;
-        }
-        .buttons a {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 26px;
-            border-radius: 6px;
-            font-size: 1.05em;
-            text-decoration: none;
-            background: #007bff;
-            color: #fff;
-        }
-        .buttons a:hover {
-            background: #0056b3;
-        }
-        .badge-row img {
-            margin: 5px;
-        }
-        canvas {
-            position: fixed;
-            left: 0; top: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            opacity: 0.38;
-        }
-        footer {
-            margin-top: 80px;
-            padding-bottom: 50px;
-            opacity: 0.75;
-            font-size: 0.9em;
-            z-index: 2;
-            position: relative;
-        }
-        footer a {
-            color: #00b6ff;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BBH-Sim Visualizer</title>
+<style>
+  :root {
+    --bg:#0b0b0b; --panel:#111; --accent:#00b4ff;
+    --muted:#888; --text:#e6e6e6;
+    --hplus:#00ffcc; --hcross:#ff66ff;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial;}
+  header{padding:14px 16px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+  h1{margin:0;font-size:1.25rem;color:var(--accent)}
+  p.lead{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
+  .toolbar{display:flex;gap:8px;justify-content:center;padding:12px;flex-wrap:wrap}
+  .tabbtn{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--text);
+          padding:8px 12px;border-radius:8px;font-weight:600}
+  .tabbtn.active{background:linear-gradient(90deg,rgba(0,180,255,0.15),rgba(0,140,210,0.1));
+                 border-color:rgba(0,180,255,0.4)}
+  main{padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .panel{background:var(--panel);width:95%;max-width:920px;border-radius:12px;padding:12px}
+  canvas{display:block;width:100%;height:360px;border-radius:8px;background:#000}
+  .controls{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px;flex-wrap:wrap}
+  button{background:var(--accent);color:#000;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer}
+  button.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.1)}
+  .small{font-size:0.9rem;padding:6px 8px}
+  .muted{color:var(--muted);font-size:0.9rem;text-align:center;margin-top:6px}
+  .legend{position:absolute;top:8px;right:12px;font-size:0.8rem;background:rgba(0,0,0,0.4);
+          padding:4px 8px;border-radius:6px;color:#eee}
+  .legend span{display:inline-block;width:12px;height:12px;margin-right:4px;border-radius:3px}
+  footer{padding:14px;text-align:center;color:var(--muted);font-size:0.85rem}
+  .panel-wrap{position:relative;width:100%;display:flex;flex-direction:column;align-items:center}
+</style>
 </head>
 <body>
-
-<canvas id="chamber"></canvas>
-
 <header>
-    <img class="logo" src="assets/logo-cf.svg" alt="CF Logo">
-
-    <h1>Compressive Physics Framework</h1>
-
-    <p>
-        An open scientific initiative exploring <strong>compressive geometry</strong> and emergent
-        <strong>particle-like behavior</strong> within harmonic fields.
-    </p>
-
-    <div class="badge-row">
-        <img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/ci.yml?label=CI" alt="CI Status">
-        <img src="https://img.shields.io/github/deployments/mamaofthree579-ship-it/github-pages?label=Docs" alt="Docs Deploy">
-        <img src="https://img.shields.io/github/license/mamaofthree579-ship-it" alt="License">
-    </div>
-
-    <div class="buttons">
-        <a href="docs/">📘 Documentation</a>
-        <a href="https://github.com/mamaofthree579-ship-it">🐙 GitHub</a>
-    </div>
-
-    <div style="margin-top: 20px; opacity: 0.8;">
-        Version: <span id="version-text">loading…</span>
-    </div>
+  <h1>BBH-Sim Visualizer</h1>
+  <p class="lead">Interactive mock gravitational wave demonstration</p>
 </header>
 
-<footer>
-    <div>© 2025 Compressive Framework Project · Open Research</div>
-    <div style="margin-top:6px;">
-        <a href="CITATION.cff">Cite this project</a> ·
-        <a href="LICENSE">MIT License</a>
+<div class="toolbar">
+  <button class="tabbtn active" data-view="timefreq">Time & Frequency</button>
+  <button class="tabbtn" data-view="chirp">Animated Chirp</button>
+  <button class="tabbtn" data-view="dual">Dual Polarization</button>
+</div>
+
+<main>
+  <section id="timefreq" class="panel view">
+    <div class="panel-wrap">
+      <div class="legend"><span style="background:var(--accent)"></span>h₊  |  <span style="background:#fff"></span>h×</div>
+      <canvas id="timeCanvas"></canvas>
     </div>
+    <canvas id="freqCanvas" style="height:240px;margin-top:12px"></canvas>
+    <div class="controls">
+      <button id="refreshStatic" class="small ghost">Refresh</button>
+      <button id="downloadTime" class="small">📥 Download Plot</button>
+    </div>
+    <div class="muted">Static waveform (top) and FFT frequency spectrum (bottom)</div>
+  </section>
+
+  <section id="chirp" class="panel view" style="display:none">
+    <div class="panel-wrap">
+      <div class="legend"><span style="background:var(--accent)"></span>h₊</div>
+      <canvas id="chirpCanvas"></canvas>
+    </div>
+    <div class="controls">
+      <button id="playChirp">▶ Play</button>
+      <button id="resetChirp" class="ghost small">Reset</button>
+      <button id="downloadChirp" class="small">📥 Download Plot</button>
+    </div>
+    <div class="muted">Single polarization chirp (time-domain)</div>
+  </section>
+
+  <section id="dual" class="panel view" style="display:none">
+    <div class="panel-wrap">
+      <div class="legend"><span style="background:var(--hplus)"></span>h₊  |  <span style="background:var(--hcross)"></span>h×</div>
+      <canvas id="dualCanvas"></canvas>
+    </div>
+    <div class="controls">
+      <button id="playDual">▶ Play</button>
+      <button id="pauseDual" class="ghost small">Pause</button>
+      <button id="downloadDual" class="small">📥 Download Plot</button>
+    </div>
+    <div class="muted">Dual polarization animation (phase-shifted)</div>
+  </section>
+
+  <div class="controls" style="margin-top:16px">
+    <button id="downloadAll" class="small">📦 Download All Plots</button>
+  </div>
+</main>
+
+<footer>
+  <div>BBH-Sim demo — mock waveform visualizer © 2025</div>
+  <div id="timestamp" style="margin-top:4px;font-size:0.8rem;"></div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-// Resize canvas to fill screen
-const canvas = document.getElementById('chamber');
-const ctx = canvas.getContext('2d');
-function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-addEventListener('resize', resize);
-resize();
+document.addEventListener('DOMContentLoaded', () => {
 
-// Phase Resonance Chamber animation
-let t = 0;
-function animate(){
-    t += 0.012;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const cx = canvas.width/2, cy = canvas.height/2;
-    const maxR = Math.min(cx,cy)*0.85;
-
-    for(let i=0;i<8;i++){
-        const r = maxR*((i+1)/8)*(1+0.045*Math.sin(t*4-i));
-        ctx.beginPath();
-        ctx.arc(cx,cy,r,0,Math.PI*2);
-        ctx.strokeStyle = `rgba(0,180,255,${0.5-(i*0.05)})`;
-        ctx.lineWidth = 1.8;
-        ctx.stroke();
-    }
-    requestAnimationFrame(animate);
+// ---------- timestamp ----------
+function updateTimestamp(){
+  const now = new Date();
+  document.getElementById('timestamp').textContent =
+    "Generated on: " + now.toLocaleString();
 }
-animate();
+updateTimestamp();
 
-// Version auto-injection from pyproject.toml
-fetch('pyproject.toml')
-  .then(r => r.text())
-  .then(t => {
-    const match = t.match(/version\s*=\s*"(.+?)"/);
-    if (match){
-      document.getElementById('version-text').textContent = match[1];
-    }
+// ---------- mock data ----------
+const N=1500, dt=0.0005;
+const t=Array.from({length:N},(_,i)=>i*dt);
+const f_start=30, f_end=250;
+const f_t=t.map(x=>f_start+(f_end-f_start)*(x/t[t.length-1])**2);
+const amp=t.map(x=>(x/t[t.length-1])**3);
+const hPlus=t.map((x,i)=>amp[i]*Math.sin(2*Math.PI*f_t[i]*x)*Math.exp(-x*80));
+const hCross=t.map((x,i)=>amp[i]*Math.cos(2*Math.PI*f_t[i]*x)*Math.exp(-x*80));
+
+// ---------- utilities ----------
+function saveCanvas(canvas,name){
+  const link=document.createElement('a');
+  link.download=name+'.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+}
+function toData(canvas){return canvas.toDataURL('image/png').split(',')[1];}
+
+// ---------- FFT & drawing ----------
+function fftMag(sig){
+  const n=sig.length;const re=new Array(n).fill(0),im=new Array(n).fill(0);
+  for(let k=0;k<n;k++){for(let j=0;j<n;j++){const a=2*Math.PI*k*j/n;re[k]+=sig[j]*Math.cos(a);im[k]-=sig[j]*Math.sin(a);}}
+  return re.map((r,i)=>Math.sqrt(r*r+im[i]*im[i])/n).slice(0,n/2);
+}
+function drawAxes(ctx,w,h,label){
+  ctx.strokeStyle='rgba(255,255,255,0.2)';
+  ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.5)';
+  ctx.font='12px system-ui';ctx.fillText(label,8,14);
+}
+function drawTimeFreq(){
+  const timeC=document.getElementById('timeCanvas');
+  const freqC=document.getElementById('freqCanvas');
+  const ctxT=timeC.getContext('2d'), ctxF=freqC.getContext('2d');
+  const w=timeC.width=timeC.clientWidth, h=timeC.height=360;
+  ctxT.fillStyle='#000';ctxT.fillRect(0,0,w,h);
+  drawAxes(ctxT,w,h,"Time-domain Strain");
+  ctxT.strokeStyle=window.getComputedStyle(document.documentElement).getPropertyValue('--accent');
+  ctxT.beginPath();
+  for(let i=0;i<N;i++){const x=i/N*w, y=h/2-hPlus[i]*160; i?ctxT.lineTo(x,y):ctxT.moveTo(x,y);}ctxT.stroke();
+  ctxT.strokeStyle='#fff';ctxT.beginPath();
+  for(let i=0;i<N;i++){const x=i/N*w, y=h/2-hCross[i]*160; i?ctxT.lineTo(x,y):ctxT.moveTo(x,y);}ctxT.stroke();
+
+  const mag=fftMag(hPlus);
+  const wf=freqC.width=freqC.clientWidth, hf=freqC.height=240;
+  const ctx2=freqC.getContext('2d');
+  ctx2.fillStyle='#000';ctx2.fillRect(0,0,wf,hf);
+  drawAxes(ctx2,wf,hf,"Frequency-domain (FFT)");
+  ctx2.strokeStyle='#00ff88';ctx2.beginPath();
+  for(let i=0;i<mag.length;i++){const x=i/mag.length*wf, y=hf-(mag[i]/Math.max(...mag))*200; i?ctx2.lineTo(x,y):ctx2.moveTo(x,y);}
+  ctx2.stroke();
+}
+
+// ---------- Tabs ----------
+document.querySelectorAll('.tabbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const v=btn.dataset.view;
+    document.querySelectorAll('.view').forEach(sec=>{
+      sec.style.display = (sec.id===v)?'block':'none';
+    });
+    if(v==='timefreq') drawTimeFreq();
   });
-</script>
+});
 
+// ---------- Download All ----------
+document.getElementById('downloadAll').onclick=async()=>{
+  const zip=new JSZip();
+  drawTimeFreq();
+  zip.file('time_frequency.png', toData(document.getElementById('timeCanvas')), {base64:true});
+  zip.file('chirp.png', toData(document.getElementById('chirpCanvas')), {base64:true});
+  zip.file('dual.png', toData(document.getElementById('dualCanvas')), {base64:true});
+
+  const now=new Date();
+  const timestamp=now.toLocaleString();
+  const readmeText =
+`# BBH-Sim Visualizer — Plot Descriptions
+
+Created on: ${timestamp}
+
+1. time_frequency.png — Time & frequency-domain view.
+2. chirp.png — Animated chirp waveform (h₊).
+3. dual.png — Dual polarization view (h₊, h×).
+
+All plots are mock data for demonstration only.`;
+
+  zip.file('README.txt', readmeText);
+  const blob=await zip.generateAsync({type:"blob"});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='bbh_sim_plots.zip';
+  a.click();
+};
+
+drawTimeFreq();
+
+});
+</script>
 </body>
 </html>
