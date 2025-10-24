@@ -1,32 +1,40 @@
 # Compressive Framework (CF)
 
-The **Compressive Framework (CF)** is a research model designed to explore:
+<p align="center">
+  <img src="images/cf-trifractal-dark.svg" alt="CF logo" width="160"/>
+</p>
 
-- Gravitational compression as a *primary* physical force
-- Particle dynamics under extreme curvature
-- The emergence of structure from compression-driven behavior
+**Compressive Framework** — *Theoretical Gravitation & Particle Studies*.
 
-This is an **open scientific effort**, with ongoing development of:
+The CF project investigates how compressive geometry and harmonic structure shape particle behavior in high-curvature regimes.  
+This documentation provides:
 
-✅ Mathematical derivations  
-✅ Computational models  
-✅ Simulation tools  
-✅ Visual representations of compressive behavior  
-
----
-
-## Project Goals
-
-- Provide a unified modeling framework for compressive gravitational fields
-- Explore particle interaction under compression-based behavior
-- Develop notebooks, simulations, and an open API for researchers
+- Theory notes and symbolic prototypes  
+- Reproducible simulations and runnable notebooks  
+- Reference plots and interactive visualizations
 
 ---
 
-## Where to Start
+## Quick start
 
-📌 **Our documentation navigation** (top of this site)  
-📌 **Notebooks** for interactive exploration  
-📌 Submit issues, ideas, or research contributions on GitHub
+- View interactive notebooks: **Notebooks → Introduction**  
+- Run the browser demo: **Simulations → Interactive**  
+- Read the math: **Theory → Equations**
 
-🌌 *Thank you for supporting open physics research.*
+---
+
+## Math examples
+
+Inline math works: $C(x) = \nabla \cdot \mathbf{g}(x)$
+
+Block math example:
+
+$$
+\Psi(x,t) = A \sin(kx - \omega t)\, e^{-\alpha x}
+$$
+
+---
+
+## Contributing
+
+See the [Contribution Guide](contributing.md) for how to run the notebooks and contribute safely.
