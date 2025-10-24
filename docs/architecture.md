@@ -1,8 +1,12 @@
-# Architecture
+# Software Architecture
 
-The CF simulation scaffold comprises modular components:
-- `cf.field` – field and anchor cluster model
-- `cf.spectral` – spectral coupling and RK4 integrator
-- `cf.autotune` – adaptive anchor clustering algorithm
-- `cf.export` – reproducible run export utilities
-- `src/examples/interactive_demo.py` – runnable interactive demo
+The Compressive Framework (CF) is built for scientific reproducibility.
+
+## Core Principles
+
+- Modular computation
+- Notebook-driven simulation
+- Continuous validation (CI)
+- Open documentation
+
+## Structure
