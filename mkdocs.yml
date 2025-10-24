@@ -1,29 +1,32 @@
-site_name: Compressive Framework (CF)
-site_description: Open scientific modeling of compressive particle behavior
-site_author: mamaofthree579-ship-it
-repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
-theme:
-  name: material
-  palette:
-    primary: indigo
-    accent: teal
-  features:
-    - navigation.tabs
-    - navigation.top
-    - search.highlight
-    - search.suggest
-    - content.code.copy
-nav:
-  - Home: index.md
-  - Research:
-      - Overview: research.md
-      - Architecture: architecture.md
-  - Simulations: simulations.md
-markdown_extensions:
-  - admonition
-  - pymdownx.superfences
-  - pymdownx.highlight
-  - toc:
-      permalink: true
-plugins:
-  - search
+name: Deploy MkDocs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Documentation Tools
+        run: |
+          pip install mkdocs-material \
+                     mkdocs-git-revision-date-localized-plugin \
+                     mkdocs-tags-plugin \
+                     pymdown-extensions
+
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --force
