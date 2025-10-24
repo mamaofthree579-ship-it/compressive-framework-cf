@@ -1,49 +1,32 @@
 # Compressive Framework (CF)
 
-A research framework for studying **compressive behavior in particle-based systems** — from astrophysics to condensed matter.
+The **Compressive Framework (CF)** is a research model designed to explore:
 
-> Open science for compressive modeling, simulation, and analysis.
+- Gravitational compression as a *primary* physical force
+- Particle dynamics under extreme curvature
+- The emergence of structure from compression-driven behavior
 
----
+This is an **open scientific effort**, with ongoing development of:
 
-## 🔬 What is Compressive Dynamics?
-
-Compressive dynamics describes **how matter behaves under pressure**:
-
-- Particles deform
-- Waveforms change
-- Forces redistribute
-- Energy compacts
-
-Understanding these effects helps improve modeling in:
-
-✅ Nuclear physics  
-✅ Materials engineering  
-✅ High-energy simulations  
-✅ Dense astrophysical objects
+✅ Mathematical derivations  
+✅ Computational models  
+✅ Simulation tools  
+✅ Visual representations of compressive behavior  
 
 ---
 
-## 📈 Interactive Simulation (Coming Soon)
+## Project Goals
 
-This page will include:
+- Provide a unified modeling framework for compressive gravitational fields
+- Explore particle interaction under compression-based behavior
+- Develop notebooks, simulations, and an open API for researchers
 
-- A waveform visualizer
-- Sliders for compression parameters
-- Real-time numerical plots
+---
 
-Example prototype:
+## Where to Start
 
-```python
-import numpy as np
-import matplotlib.pyplot as plt
+📌 **Our documentation navigation** (top of this site)  
+📌 **Notebooks** for interactive exploration  
+📌 Submit issues, ideas, or research contributions on GitHub
 
-x = np.linspace(0, 10, 500)
-compression = 2.5
-wave = np.sin(x * compression)
-
-plt.plot(x, wave)
-plt.title("Compressive Waveform Demo")
-plt.xlabel("Position")
-plt.ylabel("Amplitude")
-plt.grid(True)
+🌌 *Thank you for supporting open physics research.*
