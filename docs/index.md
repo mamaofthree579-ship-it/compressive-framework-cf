@@ -1,40 +1,47 @@
-# Compressive Framework (CF)
+# 🌌 Compressive Framework (CF)
+Understanding geometry-driven stability, particle dynamics, and compressive behavior across dimensional gradients.
 
-<p align="center">
-  <img src="images/cf-trifractal-dark.svg" alt="CF logo" width="160"/>
-</p>
-
-**Compressive Framework** — *Theoretical Gravitation & Particle Studies*.
-
-The CF project investigates how compressive geometry and harmonic structure shape particle behavior in high-curvature regimes.  
-This documentation provides:
-
-- Theory notes and symbolic prototypes  
-- Reproducible simulations and runnable notebooks  
-- Reference plots and interactive visualizations
+<div class="hero-animate">
+  <h2>Open-Source Physics Research</h2>
+  <p>Designed for transparency, collaboration, and scientific reproducibility.</p>
+</div>
 
 ---
 
-## Quick start
+## ✅ Project Status
 
-- View interactive notebooks: **Notebooks → Introduction**  
-- Run the browser demo: **Simulations → Interactive**  
-- Read the math: **Theory → Equations**
-
----
-
-## Math examples
-
-Inline math works: $C(x) = \nabla \cdot \mathbf{g}(x)$
-
-Block math example:
-
-$$
-\Psi(x,t) = A \sin(kx - \omega t)\, e^{-\alpha x}
-$$
+<div class="badge-row">
+<img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/compressive-framework-cf/ci.yml?branch=main" />
+<img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/compressive-framework-cf/notebook-validation.yml?branch=main" />
+<img src="https://img.shields.io/github/license/mamaofthree579-ship-it/compressive-framework-cf" />
+</div>
 
 ---
 
-## Contributing
+## 📌 What is CF?
 
-See the [Contribution Guide](contributing.md) for how to run the notebooks and contribute safely.
+CF is a unified experimental framework exploring:
+
+- Hyperdimensional geometric compression
+- Harmonic stability / wobble suppression
+- Adaptive anchor clustering
+- Multi-arm fractal and loop configurations
+
+---
+
+## 📁 Repository Structure
+
+| Area | Purpose |
+|------|---------|
+| Algorithms | Adaptive clustering & stability code |
+| Architecture | Model structures, data flow & scaling |
+| Notebooks | Visual examples & simulation docs |
+| Docs | Scientific context & theory |
+
+---
+
+## 🚀 Participate & Contribute
+
+```bash
+git clone https://github.com/mamaofthree579-ship-it/compressive-framework-cf.git
+cd compressive-framework-cf
