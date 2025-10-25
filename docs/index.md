@@ -13,7 +13,8 @@ Understanding geometry-driven stability, particle dynamics, and compressive beha
 <div class="badge-row">
 <img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/compressive-framework-cf/ci.yml?branch=main" />
 <img src="https://img.shields.io/github/actions/workflow/status/mamaofthree579-ship-it/compressive-framework-cf/notebook-validation.yml?branch=main" />
-<img src="https://img.shields.io/github/license/mamaofthree579-ship-it/compressive-framework-cf" />
+<img 
+src="https://img.shields.io/badge/License-MIT-blue.svg" />
 </div>
 
 ---
