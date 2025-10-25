@@ -5,7 +5,7 @@ theme:
   name: material
 
 nav:
-  - Home: index.md
+  - Home: docs/index.md
   - Theory:
       - Overview: theory/overview.md
       - Equations: theory/equations.md
