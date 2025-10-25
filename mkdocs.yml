@@ -1,57 +1,37 @@
 site_name: Compressive Framework (CF)
-site_description: Theoretical Gravitation & Particle Studies — compressive geometry & particle-field behavior.
-site_author: mamaofthree579-ship-it
-repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+site_description: Open research into compressive geometry, stability dynamics, and particle behavior.
 
 theme:
   name: material
-  logo: images/cf-trifractal-dark.svg
-  favicon: images/cf-trifractal-dark.svg
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: blue
-      accent: teal
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: blue
-      accent: teal
   features:
-    - navigation.instant
     - navigation.tabs
+    - navigation.sections
+    - navigation.expand
     - content.code.copy
+    - content.tabs.link
+    - content.action.edit
+    - content.tooltips
+    - toc.integrate
+    - header.autohide
+  palette:
+    scheme: default
+  icon:
+    repo: fontawesome/brands/github
+
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+repo_name: CF on GitHub
+
+extra_css:
+  - styles/extra.css
+
+extra_javascript:
+  - js/extra.js
 
 nav:
   - Home: index.md
-  - Theory:
-      - Overview: theory/overview.md
-      - Equations: theory/equations.md
-  - Simulations:
-      - Interactive: simulation.md
-      - Reference Plots: reference_plots.md
+  - Docs:
+      - Architecture: docs/architecture.md
+      - Algorithms: docs/algorithms.md
+      - Glossary: docs/glossary.md
   - Notebooks:
-      - Intro: notebooks/intro_to_cf.md
-  - Contribute: contributing.md
-  - Version: version.md
-
-markdown_extensions:
-  - admonition
-  - toc:
-      permalink: true
-  - pymdownx.arithmatex:
-      inline_syntax: ['$', '$']
-      block_syntax: ['$$', '$$']
-  - pymdownx.superfences
-  - pymdownx.highlight
-
-extra_css:
-  - stylesheets/extra.css
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
-
-extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
-  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
-
-plugins:
-  - search
-  - git-revision-date-localized
+      - Intro to CF: docs/notebooks/intro_to_cf.md
