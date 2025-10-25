@@ -1,0 +1,39 @@
+site_name: Compressive Framework (CF)
+site_url: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
+repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+repo_name: mamaofthree579-ship-it/compressive-framework-cf
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - search.highlight
+    - search.share
+
+nav:
+  - Home: index.md
+  - Research:
+      - Overview: research.md
+      - Architecture: architecture.md
+  - Simulations:
+      - Interactive: simulation.md
+      - Reference Plots: reference_plots.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - footnotes
+  - admonition
+  - codehilite
+
+plugins:
+  - search
+  - mkdocs-git-revision-date-plugin
+  - mkdocs-minify-plugin
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
+  footer: "A research framework exploring compressive dynamics and particle coherence through open mathematical simulation."
