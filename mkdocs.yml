@@ -1,37 +1,23 @@
 site_name: Compressive Framework (CF)
-site_description: Open research into compressive geometry, stability dynamics, and particle behavior.
+site_url: https://mamaofthree579-ship-it.github.io/compressive-framework-cf/
 
 theme:
   name: material
-  features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.expand
-    - content.code.copy
-    - content.tabs.link
-    - content.action.edit
-    - content.tooltips
-    - toc.integrate
-    - header.autohide
-  palette:
-    scheme: default
-  icon:
-    repo: fontawesome/brands/github
-
-repo_url: https://github.com/mamaofthree579-ship-it/compressive-framework-cf
-repo_name: CF on GitHub
-
-extra_css:
-  - styles/extra.css
-
-extra_javascript:
-  - js/extra.js
 
 nav:
   - Home: index.md
-  - Docs:
-      - Architecture: docs/architecture.md
-      - Algorithms: docs/algorithms.md
-      - Glossary: docs/glossary.md
-  - Notebooks:
-      - Intro to CF: docs/notebooks/intro_to_cf.md
+  - Theory:
+      - Overview: theory/overview.md
+      - Equations: theory/equations.md
+  - Simulations:
+      - Concepts: simulation_concepts.md
+      - Simulation Index: simulations.md
+  - API Reference: api.md
+  - Architecture: Architecture.md
+  - Glossary: glossary.md
+  - Contributor Guide: contributing.md
+  - Research: research.md
+  - Math Reference: math_reference.md
+  - Reference Plots: reference_plots.md
+  - Jupyter Notebooks:
+      - Intro to CF: notebooks/intro_to_cf.md
